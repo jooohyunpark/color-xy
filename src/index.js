@@ -7,7 +7,7 @@ const height = 640
 const data = []
 const count = 1000
 
-const colors = ['#5200ff', '#00ff00', '#ff0000']
+const colors = ['#9A303A', '#dd5f3d', '#edc592', '#bcdabf', '5f9e77']
 
 for (let i = 0; i < count; i++) {
   const randomColor = Math.floor(Math.random() * 16777215).toString(16)
@@ -33,26 +33,26 @@ const xScale = d3
     })
   )
 
-const g = svg.append('g').attr('class', 'focus')
+for (let col = 0; col < 10; col++) {
+  const g = svg.append('g').attr('class', 'focus')
 
-g.selectAll('line')
-  .data(data)
-  .enter()
-  .append('line')
-  .attr('x1', function(d, i) {
-    return xScale(i)
-  })
-  .attr('y1', 0)
-  .attr('x2', function(d, i) {
-    return xScale(i)
-  })
-  .attr('y2', function(d, i) {
-    return i * 1000
-  })
-  .style('stroke', function(d) {
-    return d.color
-  })
-  .style('stroke-width', 1)
+  g.selectAll('line')
+    .data(data)
+    .enter()
+    .append('line')
+    .attr('x1', function(d, i) {
+      return xScale(i)
+    })
+    .attr('y1', (height / 10) * col)
+    .attr('x2', function(d, i) {
+      return xScale(i)
+    })
+    .attr('y2', (height / 10) * (col + 1))
+    .style('stroke', function(d) {
+      return pick(colors)
+    })
+    .style('stroke-width', 1)
+}
 
 function pick(items) {
   return items[Math.floor(Math.random() * items.length)]
